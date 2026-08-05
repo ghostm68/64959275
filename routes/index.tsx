@@ -1,4 +1,4 @@
-import { Head } from "$fresh/runtime.ts";
+import { Head } from "fresh";
 import Typewriter from "../islands/Typewriter.tsx";
 
 // Converted styling to typed style objects
