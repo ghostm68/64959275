@@ -1,25 +1,35 @@
 import { useEffect, useRef } from "preact/hooks";
 
 export default function Typewriter() {
-  const h1Ref = useRef<HTMLHeadingElement>(null);
+  // Use HTMLHeadingElement | null for safer Preact/React compat types
+  const h1Ref = useRef<HTMLHeadingElement | null>(null);
 
   useEffect(() => {
     const h1 = h1Ref.current;
     if (!h1) return;
 
     const text = "WORDSTAR NEXUS";
-    h1.innerText = "";
+    // Using textContent is safer than innerHTML and avoids strict linter blocks
+    h1.textContent = "";
     let i = 0;
+    let timeoutId: number;
 
     const type = () => {
       if (i < text.length) {
-        h1.innerHTML += text.charAt(i);
+        h1.textContent += text.charAt(i);
         i++;
-        setTimeout(type, 100);
+        timeoutId = window.setTimeout(type, 100);
       }
     };
 
     type();
+
+    // Cleanup function to prevent memory leaks and double-triggering on unmount
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, []);
 
   return <h1 ref={h1Ref}>WORDSTAR NEXUS</h1>;
