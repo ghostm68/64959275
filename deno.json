@@ -18,7 +18,7 @@
   "exclude": [
     "**/_fresh/*"
   ],
-"imports": {
+  "imports": {
     "fresh": "jsr:@fresh/core@^2.3.0",
     "preact": "npm:preact@^10.27.1",
     "preact/jsx-runtime": "npm:preact@^10.27.1/jsx-runtime",
